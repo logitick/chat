@@ -23,13 +23,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 
 public class ChatView extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextArea textArea;
 	private JButton btnSend;
 	private JMenu mnNewMenu;
 	private JMenuBar menuBar;
@@ -37,6 +37,8 @@ public class ChatView extends JFrame {
 	private JMenuItem mntmDisconnect;
 	private JSeparator separator;
 	private JMenuItem mntmExit;
+	private JScrollPane scrollPane;
+	private JTextArea textArea;
 
 
 	/**
@@ -76,24 +78,19 @@ public class ChatView extends JFrame {
 		textField.setColumns(10);
 		
 		btnSend = new JButton("Send");
-		
-		textArea = new JTextArea();
-		textArea.setLineWrap(true);
-		textArea.setEditable(false);
-		textArea.setRows(1);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addComponent(textField, GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(textField, GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnSend))
-				.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+				.addComponent(getScrollPane(), GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addComponent(textArea, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(getScrollPane(), GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -111,7 +108,7 @@ public class ChatView extends JFrame {
 	}
 	
 	public void append(String msg) {
-		textArea.append(msg+"\n");
+		textArea.append(msg+"\n");	
 	}
 	
 	public void addConnectActionListener(ActionListener m) {
@@ -132,5 +129,21 @@ public class ChatView extends JFrame {
 	
 	public void addBtnSendActionListener() {
 		btnSend.addActionListener(textField.getActionListeners()[0]);
+	}
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setViewportView(getTextArea());
+		}
+		return scrollPane;
+	}
+	private JTextArea getTextArea() {
+		if (textArea == null) {
+			textArea = new JTextArea();
+			textArea.setRows(5);
+			//textArea.setLineWrap(true);
+			textArea.setEditable(false);
+		}
+		return textArea;
 	}
 }

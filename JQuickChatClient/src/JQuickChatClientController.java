@@ -72,8 +72,7 @@ public class JQuickChatClientController  {
 				try {
 					connect(ip);
 					client.send(System.getProperty("user.name"));
-					timer = new Timer();
-					timer.schedule(inputs, 0, 100);
+					inputs.start();
 				} catch (UnknownHostException e) {
 					JOptionPane.showMessageDialog(view, "Host unknown");
 				} catch (IOException e) {
@@ -124,8 +123,8 @@ public class JQuickChatClientController  {
 		try {
 			if (client.isConnected()) {
 				client.send("/quit");
-				inputs.run();
 				client.close();
+				inputs.close();
 			}
 		} catch (IOException ee) {
 			
