@@ -1,6 +1,6 @@
 [submodule "chat-server"]
 	path = chat-server
-	url = C:/Users/elijah/Documents/github/chat-server
+	url = https://github.com/logitick/chat-server.git
 [submodule "chat-client"]
 	path = chat-client
-	url = C:/Users/elijah/Documents/github/chat-client
+	url = https://github.com/logitick/chat-client.git
